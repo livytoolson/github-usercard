@@ -23,8 +23,6 @@ import axios from 'axios';
 function result() {
 axios.get('https://api.github.com/users/livytoolson')
   .then(res => {
-    const userData = res.data;
-    // console.log(userData)
     const gitHubCard = cardMaker(res.data);
     entryPoint.appendChild(gitHubCard);
     // console.log(res.data)
@@ -127,8 +125,8 @@ function cardMaker(object){
   name.textContent = object.name;
   username.textContent = object.login;
   location.textContent = `Location: ${object.location}`;
-  profile.textContent = 'Profile: ';
-  profileLink.src = object.html_url;
+  profile.textContent = `Profile: ${object.url}`;
+  // profileLink.src = object.html_url;
   followers.textContent = `Followers: ${object.followers}`;
   following.textContent = `Following: ${object.following}`;
   bio.textContent = `Bio: ${object.bio}`;
