@@ -19,11 +19,12 @@ import axios from 'axios';
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
-const result = axios.get('https://api.github.com/users/livytoolson')
 
+function result() {
+axios.get('https://api.github.com/users/livytoolson')
   .then(res => {
     const userData = res.data;
-    console.log(userData)
+    // console.log(userData)
     const gitHubCard = cardMaker(res.data);
     entryPoint.appendChild(gitHubCard);
     // console.log(res.data)
@@ -31,6 +32,8 @@ const result = axios.get('https://api.github.com/users/livytoolson')
   .catch(err => {
     console.log(err)
   })
+}
+result();
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -45,20 +48,24 @@ const result = axios.get('https://api.github.com/users/livytoolson')
 
 const followersArray = [];
 followersArray.push('tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell')
-console.log(followersArray)
+const entryPoint = document.querySelector('.cards')
+// console.log(followersArray)
 
-axios.get('https://api.github.com/users/{username}')
+followersArray.forEach(item => {
+  axios.get(`https://api.github.com/users/${item}`)
   .then(res => {
-    followersArray.forEach(item => {
-    for(let i = 0; i < followersArray.length; i++){
-      const gitHubCard = cardMaker(res.data)
-      entryPoint.appendChild(gitHubCard)
-      }
-    })
+    const gitHubCard = cardMaker(res.data)
+    entryPoint.appendChild(gitHubCard)
+    // followersArray.forEach(user => {
+    //   const gitHubCard = cardMaker(res.data)
+    //   entryPoint.appendChild(gitHubCard)
+    // })
   })
   .catch(err =>{
     console.log(err)
   })
+})
+
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -80,7 +87,6 @@ axios.get('https://api.github.com/users/{username}')
 */
 
 // Selecting the entry point for cards
-const entryPoint = document.querySelector('.cards')
 // console.log(entryPoint)
 
 function cardMaker(object){
@@ -134,7 +140,7 @@ function cardMaker(object){
 
   // Return card
   return card;
-};
+}
 
 /*
   List of LS Instructors Github username's:
