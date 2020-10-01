@@ -53,7 +53,7 @@ followersArray.forEach(item => {
   axios.get(`https://api.github.com/users/${item}`)
   .then(res => {
     const gitHubCard = cardMaker(res.data)
-    entryPoint.appendChild(gitHubCard)
+    entryPoint.append(gitHubCard)
     // followersArray.forEach(user => {
     //   const gitHubCard = cardMaker(res.data)
     //   entryPoint.appendChild(gitHubCard)
@@ -115,7 +115,7 @@ function cardMaker(object){
   cardInfo.appendChild(bio);
 
   // Setting Class Names
-  card.classList.add('class');
+  card.classList.add('card');
   cardInfo.classList.add('card-info');
   name.classList.add('name');
   username.classList.add('username');
