@@ -19,13 +19,17 @@ import axios from 'axios';
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
-axios.get('https://api.github.com/users/livytoolson')
+const result = axios.get('https://api.github.com/users/livytoolson')
+
   .then(res => {
-    const gitHubCard = cardMaker(object);
-    entryPoint.append(gitHubCard)
+    const userData = res.data;
+    console.log(userData)
+    const gitHubCard = cardMaker(res.data);
+    entryPoint.appendChild(gitHubCard);
+    // console.log(res.data)
   })
   .catch(err => {
-    debugger
+    console.log(err)
   })
 
 /*
@@ -40,7 +44,21 @@ axios.get('https://api.github.com/users/livytoolson')
 */
 
 const followersArray = [];
+followersArray.push('tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell')
+console.log(followersArray)
 
+axios.get('https://api.github.com/users/{username}')
+  .then(res => {
+    followersArray.forEach(item => {
+    for(let i = 0; i < followersArray.length; i++){
+      const gitHubCard = cardMaker(res.data)
+      entryPoint.appendChild(gitHubCard)
+      }
+    })
+  })
+  .catch(err =>{
+    console.log(err)
+  })
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -102,9 +120,9 @@ function cardMaker(object){
   image.src = object.avatar_url;
   name.textContent = object.name;
   username.textContent = object.login;
-  location.textContent = `Location: ${location}`;
+  location.textContent = `Location: ${object.location}`;
   profile.textContent = 'Profile: ';
-  profileLink.textContent = object.html_url;
+  profileLink.src = object.html_url;
   followers.textContent = `Followers: ${object.followers}`;
   following.textContent = `Following: ${object.following}`;
   bio.textContent = `Bio: ${object.bio}`;
