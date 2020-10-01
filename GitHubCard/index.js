@@ -7,7 +7,7 @@ import axios from 'axios';
     https://api.github.com/users/<your name>
 */
 
-const result = axios.get('https://api.github.com/users/livytoolson')
+axios.get('https://api.github.com/users/livytoolson')
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -55,9 +55,13 @@ const followersArray = [];
     </div>
 */
 
+// Selecting the entry point for cards
+const entryPoint = document.querySelector('.cards')
+// console.log(entryPoint)
+
 function cardMaker(object){
 
-  // Create Elements
+  // Instantiating Elements
   const card = document.createElement('div');
   const image = document.createElement('img');
   const cardInfo = document.createElement('div');
@@ -70,7 +74,7 @@ function cardMaker(object){
   const following = document.createElement('p');
   const bio = document.createElement('p');
 
-  // Append Elemenets
+  // Appending Elemenets & Creating Hierarchy
   card.appendChild(image);
   card.appendChild(cardInfo);
   cardInfo.appendChild(name);
@@ -82,11 +86,22 @@ function cardMaker(object){
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
 
-  // Add Classes
+  // Setting Class Names
   card.classList.add('class');
   cardInfo.classList.add('card-info');
   name.classList.add('name');
   username.classList.add('username');
+
+  // Setting Attributes & Text
+  image.src = object.avatar_url;
+  name.textContent = object.name;
+  username.textContent = object.login;
+  location.textContent = `Location: ${location}`;
+  profile.textContent = 'Profile: ';
+  profileLink.textContent = object.html_url;
+  followers.textContent = `Followers: ${object.followers}`;
+  following.textContent = `Following: ${object.following}`;
+  bio.textContent = `Bio: ${object.bio}`;
 
   // Return card
   return card;
