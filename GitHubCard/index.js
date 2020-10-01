@@ -7,8 +7,6 @@ import axios from 'axios';
     https://api.github.com/users/<your name>
 */
 
-axios.get('https://api.github.com/users/livytoolson')
-
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -21,6 +19,14 @@ axios.get('https://api.github.com/users/livytoolson')
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
+axios.get('https://api.github.com/users/livytoolson')
+  .then(res => {
+    const gitHubCard = cardMaker(object);
+    entryPoint.append(gitHubCard)
+  })
+  .catch(err => {
+    debugger
+  })
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -103,9 +109,14 @@ function cardMaker(object){
   following.textContent = `Following: ${object.following}`;
   bio.textContent = `Bio: ${object.bio}`;
 
+  // Add interactivity
+  card.addEventListener('click', () => {
+    card.classList.toggle('selected')
+  });
+
   // Return card
   return card;
-}
+};
 
 /*
   List of LS Instructors Github username's:
