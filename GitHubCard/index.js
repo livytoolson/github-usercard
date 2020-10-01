@@ -21,16 +21,16 @@ import axios from 'axios';
 */
 
 function result() {
-axios.get('https://api.github.com/users/livytoolson')
-  .then(res => {
-    const gitHubCard = cardMaker(res.data);
-    entryPoint.appendChild(gitHubCard);
-    // console.log(res.data)
-  })
-  .catch(err => {
-    console.log(err)
-  })
-}
+  axios.get('https://api.github.com/users/livytoolson')
+    .then(res => {
+      const gitHubCard = cardMaker(res.data);
+      entryPoint.appendChild(gitHubCard);
+      // console.log(res.data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
 result();
 
 /*
